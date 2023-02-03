@@ -1,6 +1,6 @@
 import { Content, Footer, LinkButton, Wrapper } from './styles';
 
-export const MainLayout = ({ children }) => {
+export function MainLayout({ children }) {
   return (
     <Wrapper>
       <Content>{children}</Content>
@@ -27,4 +27,4 @@ export const MainLayout = ({ children }) => {
       </Footer>
     </Wrapper>
   );
-};
+}

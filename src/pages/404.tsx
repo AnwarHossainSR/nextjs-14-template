@@ -2,11 +2,7 @@ import { ErrorLayout } from '@/layouts';
 import type { NextPageWithLayout } from '@/types';
 
 const NotFoundErrorPage: NextPageWithLayout = () => {
-  return (
-    <>
-      <h1>This link does nothing here</h1>
-    </>
-  );
+  return <h1>This link does nothing here</h1>;
 };
 
 NotFoundErrorPage.getLayout = (page) => <ErrorLayout>{page}</ErrorLayout>;
