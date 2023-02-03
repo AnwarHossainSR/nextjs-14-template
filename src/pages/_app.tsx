@@ -17,7 +17,7 @@ const poppins = Poppins({
   display: 'optional',
 });
 
-const App = ({ Component, pageProps }: AppPropsWithLayout) => {
+function App({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
 
@@ -26,6 +26,6 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
       {getLayout(<Component {...pageProps} />)}
     </div>
   );
-};
+}
 
 export default App;

@@ -11,7 +11,7 @@ interface Props {
   ogImage?: string;
 }
 
-export const Head = ({
+export function Head({
   title,
   description,
   keywords,
@@ -20,21 +20,23 @@ export const Head = ({
   ogDescription,
   ogUrl,
   ogImage,
-}: Props) => (
-  <NextHead>
-    <title>{title}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <meta name="keywords" content={keywords} />
-    <meta name="author" content={author} />
-    <meta property="og:title" content={ogTitle} />
-    <meta property="og:description" content={ogDescription} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={ogUrl} />
-    <meta property="og:image" content={ogImage} />
-    <meta name="robots" content="follow, index" />
-  </NextHead>
-);
+}: Props) {
+  return (
+    <NextHead>
+      <title>{title}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content={description} />
+      <meta name="keywords" content={keywords} />
+      <meta name="author" content={author} />
+      <meta property="og:title" content={ogTitle} />
+      <meta property="og:description" content={ogDescription} />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={ogUrl} />
+      <meta property="og:image" content={ogImage} />
+      <meta name="robots" content="follow, index" />
+    </NextHead>
+  );
+}
 
 Head.defaultProps = {
   author: 'YOUR_NAME',

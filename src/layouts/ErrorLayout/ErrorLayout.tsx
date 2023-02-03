@@ -16,7 +16,7 @@ const Wrapper = styled.main`
   }
 `;
 
-export const ErrorLayout = ({ children }) => {
+export function ErrorLayout({ children }) {
   return (
     <Wrapper>
       {children}
@@ -25,4 +25,4 @@ export const ErrorLayout = ({ children }) => {
       </Link>
     </Wrapper>
   );
-};
+}
