@@ -2,5 +2,5 @@
 
 // for example if you were using Sanity as your CMS you might want to add:
 // sanity.ts -> methods to interact with Sanity CMS
-
+const abc = 123;
 export {};
