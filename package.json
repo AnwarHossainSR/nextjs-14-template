@@ -21,7 +21,14 @@
     "*.{js,jsx,md,ts,tsx,html,css,scss}": "yarn prettier",
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix --cache-location ./node_modules/.cache/.eslintcache"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
+    }
+  },
   "dependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "@next/bundle-analyzer": "^13.1.6",
     "@next/font": "^13.1.6",
     "next": "^13.1.6",
