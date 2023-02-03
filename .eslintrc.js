@@ -73,6 +73,7 @@ module.exports = {
     'simple-import-sort/exports': 'error',
     'simple-import-sort/imports': 'error',
     'sort-keys': 'off',
+    'no-unused-vars': 'error',
     'react/function-component-definition': [
       2,
       {
