@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "author": "Anwar Hossain",
   "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "yarn": ">=1.22.0",
+    "npm": "please-use-yarn"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,8 +18,8 @@
     "lint": "yarn prettier && yarn eslint"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint --cache --fix --cache-location ./node_modules/.cache/.eslintcache",
-    "*.{js,jsx,ts,tsx,md,html,css,scss}": "yarn lint"
+    "*.{js,jsx,ts,tsx,md,html,css,scss}": "yarn lint",
+    "*.{js,jsx,ts,tsx}": "eslint --cache --fix --cache-location ./node_modules/.cache/.eslintcache"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^13.1.6",
