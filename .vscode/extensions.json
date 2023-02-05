@@ -3,6 +3,6 @@
     "dbaeumer.vscode-eslint",
     "formulahendry.auto-rename-tag",
     "mgmcdermott.vscode-language-babel",
-    "vunguyentuan.vscode-css-variables",
+    "vunguyentuan.vscode-css-variables"
   ]
 }
