@@ -1,6 +1,8 @@
+import type { ChildrenProps } from '@/types';
+
 import { Content, Footer, LinkButton, Wrapper } from './styles';
 
-export function MainLayout({ children }) {
+export function MainLayout({ children }: ChildrenProps) {
   return (
     <Wrapper>
       <Content>{children}</Content>
