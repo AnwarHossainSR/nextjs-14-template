@@ -9,3 +9,7 @@ export type NextPageWithLayout = NextPage & {
 export type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
+
+export type ChildrenProps = {
+  children: ReactNode;
+};
