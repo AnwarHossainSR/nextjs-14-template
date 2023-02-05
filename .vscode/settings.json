@@ -3,10 +3,9 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "cssVariables.lookupFiles": [
-    "**/GlobalStyles.tsx"
-  ],
+  "cssVariables.lookupFiles": ["**/GlobalStyles.tsx"],
   "css.lint.unknownAtRules": "ignore",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "cSpell.words": ["commitlint", "cssnano", "tailwindcss"]
 }

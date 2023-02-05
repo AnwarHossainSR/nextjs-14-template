@@ -6,7 +6,6 @@ The aim for this starter is to give you a starting point with everything ready t
 
 ## ⚡️ Stack
 
-
 - [`Next.js`](https://nextjs.org/)
 - [`Typescript`](typescriptlang.org)
 - [`Styled Components`](https://styled-components.com/)
@@ -26,7 +25,7 @@ The aim for this starter is to give you a starting point with everything ready t
 
 Styling is done with 💅🏼 Styled Components.
 
-### Global Styles 
+### Global Styles
 
 Global styles from `@/components/GlobalStyles` are added in `_app.tsx`
 
@@ -42,6 +41,7 @@ In order to improve performance, Styled Components are generated at build time a
 There is already a font preloaded from Google Fonts, Poppins. Using Google Fonts allows Next.js to CSS inline the font at build time.
 
 All of this is happening at `_document.tsx`
+
 ## 🏁 Tooling
 
 ### ESLint
@@ -65,6 +65,7 @@ tabWidth: 2,
 useTabs: false,
 endOfLine: 'lf'
 ```
+
 _.prettierrc.js_
 
 Any ESLint config that has conflicts with be overriten and Prettier config will be used in that case.
@@ -86,6 +87,7 @@ CSS Variables extension will check for CSS Custom Properties at `GlobalStyles.ts
   "**/GlobalStyles.tsx"
 ]
 ```
+
 _.vscode/settings.json_
 
 ### Absolute imports
@@ -97,6 +99,7 @@ Absolute imports working with prefix `@/` starting from `src` folder.
   "@/*": ["src/*"],
 }
 ```
+
 _tsconfig.json_
 
 ### Sorting and grouping imports
@@ -113,6 +116,7 @@ This is done using [`eslint-plugin-simple-import-sort`](https://github.com/lydel
 On every commit, the staged files will be validated to pass ESLint config.
 
 This is done using `husky` and `lint-staged`
+
 ```json
   "husky": {
     "hooks": {
@@ -123,6 +127,7 @@ This is done using `husky` and `lint-staged`
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix --cache-location ./node_modules/.cache/.eslintcache"
   },
 ```
+
 _package.json_
 
 ### Styled Components
@@ -132,15 +137,16 @@ One common feature when using Styled Components is to use [`babel-plugin-styled-
 This is done without using the plugin, by Vercel's team with the flag:
 
 ```js
-styledComponents: true
+styledComponents: true;
 ```
+
 _next.config.js_
 
 Using this prevents the need to create a `babel.config.json`, which breaks the posibility to use SWC (Rust based and more performant) compiler for Next.js.
 
 ### Next.js Compiler
 
-Other options added for the Next.js compiler includes removing console.* in production, adding concurrent features so Suspend just works, and reactStrictMode.
+Other options added for the Next.js compiler includes removing console.\* in production, adding concurrent features so Suspend just works, and reactStrictMode.
 
 ```js
 compiler: {
@@ -152,9 +158,8 @@ experimental: {
 },
 reactStrictMode: true,
 ```
+
 _next.config.js_
-
-
 
 ## SEO
 
@@ -165,12 +170,13 @@ The Head component has already some defaults, change them to fit your use case.
 Then import it and use it on the root of any page you need SEO.
 
 ```jsx
-import { Head } from '@/components'
+import { Head } from '@/components';
 ```
 
 You can also pass props to customize the use case of different pages.
 
 ### OG Image
+
 There is an OG Image already in `/public/images/og.png`, change it for a OG Image that suit your use case.
 
 It should be 1200x630px to fit most social media.
@@ -178,7 +184,6 @@ It should be 1200x630px to fit most social media.
 ### Indexing
 
 `/public/robots.txt` file already provided allowing indexing.
-
 
 ## Mantainers
 
