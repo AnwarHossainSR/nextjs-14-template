@@ -19,7 +19,8 @@ const poppins = Poppins({
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
-  const getLayout = Component.getLayout || ((page) => page);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const getLayout = Component.getLayout || ((page: any) => page);
 
   return (
     <div className={`${inter.variable} ${poppins.variable} font-sans h-full`}>
