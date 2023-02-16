@@ -1,13 +1,13 @@
 'use client';
 
 import { ErrorLayout } from '@/layouts';
-import type { NextPageWithLayout } from '@/types';
 
-const ServerErrorPage: NextPageWithLayout = () => {
+function ServerErrorPage() {
   return <h1>Something broke on the server on this page</h1>;
-};
+}
 
-ServerErrorPage.getLayout = (page) => <ErrorLayout>{page}</ErrorLayout>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ServerErrorPage.getLayout = (page: any) => <ErrorLayout>{page}</ErrorLayout>;
 
 export const getStaticProps = () => ({
   props: {

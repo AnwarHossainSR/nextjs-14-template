@@ -1,5 +1,5 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://example.com', // FIXME: Change to the production URL
+  siteUrl: 'http://localhost:3000', // FIXME: Change to the production URL
   generateRobotsTxt: true,
 };

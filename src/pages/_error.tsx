@@ -1,11 +1,11 @@
 import { ErrorLayout } from '@/layouts';
-import type { NextPageWithLayout } from '@/types';
 
-const ErrorPage: NextPageWithLayout = () => {
+function ErrorPage() {
   return <h1>There was an error, let me check on that</h1>;
-};
+}
 
-ErrorPage.getLayout = (page) => <ErrorLayout>{page}</ErrorLayout>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ErrorPage.getLayout = (page: any) => <ErrorLayout>{page}</ErrorLayout>;
 
 export const getStaticProps = () => ({
   props: {
