@@ -1,6 +1,6 @@
 import '@/styles/globals.css';
 
-import { Inter, Poppins } from '@next/font/google';
+import { Inter, Poppins } from 'next/font/google';
 
 import type { AppPropsWithLayout } from '@/types';
 

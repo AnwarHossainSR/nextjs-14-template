@@ -4,7 +4,7 @@
   "author": "Anwar Hossain",
   "license": "MIT",
   "engines": {
-    "node": ">=16.0.0",
+    "node": ">=18.0.0",
     "yarn": ">=1.22.0",
     "npm": "please-use-yarn"
   },
@@ -26,25 +26,24 @@
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix --cache-location ./node_modules/.cache/.eslintcache"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "^13.1.6",
-    "@next/font": "^13.1.6",
-    "next": "^13.1.6",
+    "@next/bundle-analyzer": "^13.2.1",
+    "next": "^13.2.1",
     "next-seo": "^5.15.0",
     "next-sitemap": "^3.1.52",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^5.3.6",
-    "tailwindcss": "^3.2.6"
+    "tailwindcss": "^3.2.7"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.4.3",
-    "@commitlint/config-conventional": "^17.4.3",
-    "@next/eslint-plugin-next": "^13.1.6",
-    "@types/node": "^18.13.0",
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@next/eslint-plugin-next": "^13.2.1",
+    "@types/node": "^18.14.1",
     "@types/react": "^18.0.28",
     "@types/styled-components": "^5.1.26",
-    "@typescript-eslint/eslint-plugin": "^5.52.0",
-    "@typescript-eslint/parser": "^5.52.0",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
     "autoprefixer": "^10.4.13",
     "cssnano": "^5.1.15",
     "eslint": "^8.34.0",
