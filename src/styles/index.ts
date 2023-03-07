@@ -2,6 +2,7 @@
 
 import tailwindColors from 'tailwindcss/colors';
 
+// @ts-ignore
 import { theme as tailwindTheme } from '../../tailwind.config';
 
 type TailwindColors = typeof tailwindColors;

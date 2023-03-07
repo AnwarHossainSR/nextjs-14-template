@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import React from 'react';
 import styled from 'styled-components';
+
+import type { ChildrenProps } from '@/types';
 
 const Wrapper = styled.main`
   height: 100%;
@@ -16,7 +17,7 @@ const Wrapper = styled.main`
   }
 `;
 
-export function ErrorLayout({ children }) {
+export function ErrorLayout({ children }: ChildrenProps) {
   return (
     <Wrapper>
       {children}
