@@ -27,6 +27,8 @@
   },
   "dependencies": {
     "@next/bundle-analyzer": "^13.2.4",
+    "date-fns": "^2.29.3",
+    "mongoose": "^7.0.3",
     "next": "^13.2.4",
     "next-seo": "^5.15.0",
     "next-sitemap": "^4.0.6",
