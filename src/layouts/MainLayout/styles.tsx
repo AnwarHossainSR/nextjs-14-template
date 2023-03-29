@@ -14,6 +14,14 @@ export const Content = styled.main`
   flex: 1;
 `;
 
+export const Header = styled.header`
+  background-color: ${theme.colors.gray[900]};
+  color: var(--color);
+  padding: 2rem;
+  display: flex;
+  justify-content: flex-end;
+`;
+
 export const Footer = styled.footer`
   background-color: ${theme.colors.gray[900]};
   color: var(--color);
