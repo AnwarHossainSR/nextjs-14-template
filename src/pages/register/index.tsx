@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { Head } from '@/components';
 import MainFooter from '@/components/Footer';
@@ -14,6 +14,9 @@ interface IError {
 }
 
 const Register = () => {
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const [error, setError] = useState<IError>({
     name: '',
@@ -73,7 +76,8 @@ const Register = () => {
               type="name"
               name="name"
               id="name"
-              className="border border-gray-300 rounded-md p-2 mt-1"
+              className="appearance-none bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+              ref={nameRef}
             />
             {error?.name && (
               <div className="text-red-500 text-sm mt-2">{error?.name}</div>
@@ -85,7 +89,8 @@ const Register = () => {
               type="email"
               name="email"
               id="email"
-              className="border border-gray-300 rounded-md p-2 mt-1"
+              className="appearance-none bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+              ref={emailRef}
             />
             {error?.email && (
               <div className="text-red-500 text-sm mt-2">{error?.email}</div>
@@ -97,7 +102,8 @@ const Register = () => {
               type="password"
               name="password"
               id="password"
-              className="border border-gray-300 rounded-md p-2 mt-1"
+              className="appearance-none bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+              ref={passwordRef}
             />
             {error?.password && (
               <div className="text-red-500 text-sm mt-2">{error?.password}</div>

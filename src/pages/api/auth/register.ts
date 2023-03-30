@@ -1,8 +1,8 @@
-import bcrypt from 'bcrypt';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import Users from '@/models/user.model';
-import { connectDB, disconnectDB } from '@/utils/mongodb/mongodb';
+import UserModel from '@/models/userModel';
+import { logInfo } from '@/utils/logger';
+import { connectDB } from '@/utils/mongodb/mongodb';
 import valid from '@/utils/validations/userValidation';
 
 const register = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -14,24 +14,21 @@ const register = async (req: NextApiRequest, res: NextApiResponse) => {
     const errMsg = valid(name, email, password);
     if (errMsg) return res.status(400).json({ err: errMsg });
 
-    const user = await Users.findOne({ email });
+    const user = await UserModel.findOne({ email });
     if (user)
       return res.status(400).json({ err: 'This email already exists.' });
 
-    const passwordHash = await bcrypt.hash(password, 12);
-
-    const newUser = new Users({
+    const newUser = new UserModel({
       name,
       email,
-      password: passwordHash,
+      password,
     });
 
     await newUser.save();
 
-    await disconnectDB();
-
-    return res.json({ message: 'Register Success!' });
+    return res.status(200).json({ message: 'Register Success!' });
   } catch (err: any) {
+    logInfo(err);
     return res.status(500).json({ err: err.message });
   }
 };

@@ -1,24 +1,26 @@
-import mongoose from 'mongoose';
+import { connect, connection } from 'mongoose';
 
 import Env from '@/env';
-import { logError, logInfo } from '@/utils/logger';
+import { logInfo } from '@/utils/logger';
 
-async function connectDB() {
-  const dbUri = Env.MONGODB_URI as string;
-  try {
-    await mongoose.connect(dbUri);
-    logInfo('DB connected');
-  } catch (error: any) {
-    logError(error);
-    process.exit(1);
-  }
-}
+const options: any = {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+};
 
-async function disconnectDB() {
-  if (mongoose.connection.readyState !== 0) {
-    await mongoose.disconnect();
+const connectDB = async () => {
+  if (!connection.readyState) {
+    connect(Env.MONGODB_URI, options);
+    logInfo(`Connected to  ${Env.MONGODB_URI}`);
   }
-}
+};
+
+const disconnectDB = async () => {
+  if (connection.readyState) {
+    connection.close();
+    logInfo('Disconnected from MongoDB');
+  }
+};
 
 export { connectDB, disconnectDB };
 

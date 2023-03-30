@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { Head } from '@/components';
 import MainFooter from '@/components/Footer';
@@ -13,6 +13,8 @@ interface IError {
 }
 
 const Login = () => {
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const [error, setError] = useState<IError>({
     email: '',
@@ -20,11 +22,9 @@ const Login = () => {
     common: '',
   });
 
-  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get('email');
-    const password = formData.get('password');
+  const handleLogin = async () => {
+    const email = emailRef.current?.value;
+    const password = passwordRef.current?.value;
 
     if (!email) return setError({ email: 'Email is required' });
     if (!password) return setError({ password: 'Password is required' });
@@ -41,9 +41,10 @@ const Login = () => {
         }),
       });
 
-      console.log(res);
+      const response = await res.json();
 
-      if (res.status === 200) return router.push('/dashboard');
+      if (res.status !== 200) return setError({ common: response.message });
+      return router.push('/dashboard');
     }
 
     return setError({ common: 'Email or password is incorrect' });
@@ -59,9 +60,11 @@ const Login = () => {
       </Header>
       <Content>
         <div className="flex flex-col items-center justify-center h-full">
-          <form className="flex flex-col w-96" onSubmit={handleLogin}>
+          <div className="flex flex-col w-96">
             {error?.common && (
-              <div className="text-red-500 text-sm mt-2">{error?.common}</div>
+              <div className="text-red-500 text-sm mb-2 text-center font-bold ">
+                {error?.common}
+              </div>
             )}
             <label htmlFor="email" className="text-sm font-semibold">
               Email
@@ -70,7 +73,8 @@ const Login = () => {
               type="email"
               name="email"
               id="email"
-              className="border border-gray-300 rounded-md p-2 mt-1"
+              className="appearance-none bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+              ref={emailRef}
             />
             {error?.email && (
               <div className="text-red-500 text-sm mt-2">{error?.email}</div>
@@ -82,7 +86,8 @@ const Login = () => {
               type="password"
               name="password"
               id="password"
-              className="border border-gray-300 rounded-md p-2 mt-1"
+              className="appearance-none bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+              ref={passwordRef}
             />
             {error?.password && (
               <div className="text-red-500 text-sm mt-2">{error?.password}</div>
@@ -90,10 +95,11 @@ const Login = () => {
             <button
               type="submit"
               className="bg-gray-900 text-white rounded-md p-2 mt-4"
+              onClick={handleLogin}
             >
               Login
             </button>
-          </form>
+          </div>
 
           <div className="mt-4">
             Don't have an account?{' '}
