@@ -1,48 +1,62 @@
+/* eslint-disable consistent-return */
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-// eslint-disable-next-line import/no-unresolved
-import Users from '@/models/user.model';
+import UserModel from '@/models/userModel';
+import { logInfo } from '@/utils/logger';
 import {
   createAccessToken,
   createRefreshToken,
 } from '@/utils/mongodb/generateToken';
-import { connectDB, disconnectDB } from '@/utils/mongodb/mongodb';
+import { connectDB } from '@/utils/mongodb/mongodb';
+import {
+  CatchAsyncErrors,
+  ErrorHandler,
+} from '@/utils/server/middleware/errorHandle';
 
-const login = async (req: NextApiRequest, res: NextApiResponse) => {
-  await connectDB();
-  try {
-    const { email, password } = req.body;
+const login = CatchAsyncErrors(
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      await connectDB();
+      const { email, password } = req.body;
 
-    const user = await Users.findOne({ email });
-    if (!user)
-      return res.status(400).json({ err: 'This user does not exist.' });
+      // checking if user has given password and email both
 
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) return res.status(400).json({ err: 'Incorrect password.' });
+      if (!email || !password) {
+        throw new ErrorHandler('Please Enter Email & Password', 400);
+      }
 
-    const accessToken = createAccessToken({ userId: user._id });
-    const refreshToken = createRefreshToken({ userId: user._id });
+      const user = await UserModel.findOne({ email }).select('+password');
 
-    res.setHeader('Set-Cookie', [
-      `refreshToken=${refreshToken}; path=/; httpOnly; max-age=2592000`,
-    ]);
+      if (!user) throw new ErrorHandler('Invalid email!', 401);
 
-    await disconnectDB();
+      const isMatch = await user.comparePassword(password);
 
-    return res.json({
-      message: 'Login Success!',
-      refreshToken,
-      accessToken,
-      user: {
-        name: user.name,
-        email: user.email,
-        role: user.isAdmin,
-      },
-    });
-  } catch (err: any) {
-    return res.status(500).json({ err: err.message });
+      if (!isMatch) throw new ErrorHandler('Invalid password!', 401);
+
+      const accessToken = createAccessToken({ userId: user._id });
+      const refreshToken = createRefreshToken({ userId: user._id });
+
+      return res.status(200).json({
+        success: true,
+        message: 'Login Success!',
+        refreshToken,
+        accessToken,
+        user: {
+          name: user.name,
+          email: user.email,
+          role: user.isAdmin,
+        },
+      });
+    } catch (error: any) {
+      logInfo(`login-error: ${error}`);
+      const err = new ErrorHandler(error.message, error.statusCode);
+      res.status(err.statusCode).json({
+        success: false,
+        message: err.message,
+      });
+    }
   }
-};
+);
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
@@ -50,6 +64,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       await login(req, res);
       break;
     default:
-      res.status(405).json({ err: 'Method not allowed' });
+      throw new ErrorHandler('Method Not Allowed', 405);
   }
 };

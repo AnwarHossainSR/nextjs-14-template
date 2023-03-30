@@ -1,5 +1,6 @@
 /* eslint-disable func-names */
 import bcrypt from 'bcrypt';
+import type { Document, Model } from 'mongoose';
 import mongoose from 'mongoose';
 
 import { SALT_WORK_FACTOR } from '@/config';
@@ -11,7 +12,7 @@ export interface UserInput {
   isAdmin: boolean;
 }
 
-export interface UserDocument extends UserInput, mongoose.Document {
+export interface UserDocument extends UserInput, Document {
   createdAt: Date;
   updatedAt: Date;
   // eslint-disable-next-line no-unused-vars
@@ -54,6 +55,7 @@ userSchema.methods.comparePassword = async function (
   return bcrypt.compare(candidatePassword, user.password).catch(() => false);
 };
 
-const User = mongoose.model<UserDocument>('User', userSchema);
+const UserModel: Model<UserDocument> =
+  mongoose.models.User || mongoose.model<UserDocument>('User', userSchema);
 
-export default User;
+export default UserModel;
