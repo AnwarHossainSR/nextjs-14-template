@@ -27,9 +27,10 @@
   },
   "dependencies": {
     "@next/bundle-analyzer": "^13.2.4",
+    "@types/cookie": "^0.5.1",
     "bcrypt": "^5.1.0",
     "config": "^3.3.9",
-    "cookie-parser": "^1.4.6",
+    "cookie": "^0.5.0",
     "date-fns": "^2.29.3",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",

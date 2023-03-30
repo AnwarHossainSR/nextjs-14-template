@@ -1,3 +1,4 @@
+import { serialize } from 'cookie';
 /* eslint-disable consistent-return */
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -6,7 +7,7 @@ import { logInfo } from '@/utils/logger';
 import {
   createAccessToken,
   createRefreshToken,
-} from '@/utils/mongodb/generateToken';
+} from '@/utils/mongodb/jwtToken';
 import { connectDB } from '@/utils/mongodb/mongodb';
 import {
   CatchAsyncErrors,
@@ -36,16 +37,21 @@ const login = CatchAsyncErrors(
       const accessToken = createAccessToken({ userId: user._id });
       const refreshToken = createRefreshToken({ userId: user._id });
 
+      const serialized = serialize('accessToken', accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== 'development',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 24 * 30,
+        path: '/',
+      });
+
+      res.setHeader('Set-Cookie', serialized);
+
       return res.status(200).json({
         success: true,
         message: 'Login Success!',
         refreshToken,
         accessToken,
-        user: {
-          name: user.name,
-          email: user.email,
-          role: user.isAdmin,
-        },
       });
     } catch (error: any) {
       logInfo(`login-error: ${error}`);
