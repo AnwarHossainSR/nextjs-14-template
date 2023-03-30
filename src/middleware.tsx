@@ -5,17 +5,17 @@ export default async function middleware(req: NextRequest) {
   const baseUrl = req.nextUrl.origin;
   const path = req.nextUrl.pathname;
   const headers = {
-    cookie: req.headers.get('cookie') || '',
+    cookie: req.headers.get('user') || '',
   };
 
   let pass = false;
-  if (path.startsWith('/admin')) {
-    const adminCheck = await fetch(`${baseUrl}/api/admin-check`, {
+  if (path.startsWith('/dashboard')) {
+    const adminCheck = await fetch(`${baseUrl}/api/auth/admin-check`, {
       headers,
     });
     pass = adminCheck.status === 200;
   } else {
-    const authCheck = await fetch(`${baseUrl}/api/auth-check`, {
+    const authCheck = await fetch(`${baseUrl}/api/auth/auth-check`, {
       headers,
     });
     pass = authCheck.status === 200;
@@ -29,5 +29,5 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/user/:path*', '/admin/:path*'],
+  matcher: ['/dashboard/:path*'],
 };
