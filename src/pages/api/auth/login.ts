@@ -64,12 +64,14 @@ const login = CatchAsyncErrors(
   }
 );
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  switch (req.method) {
-    case 'POST':
-      await login(req, res);
-      break;
-    default:
-      throw new ErrorHandler('Method Not Allowed', 405);
+export default CatchAsyncErrors(
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    switch (req.method) {
+      case 'POST':
+        await login(req, res);
+        break;
+      default:
+        throw new ErrorHandler('Method Not Allowed', 405);
+    }
   }
-};
+);

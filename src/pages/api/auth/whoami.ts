@@ -19,7 +19,6 @@ const getAuthenticatedUser = CatchAsyncErrors(
       }
 
       const isVerified = verifyAccessToken(accessToken);
-      console.log(isVerified);
 
       if (!isVerified) {
         throw new ErrorHandler('Unauthorized', 401);
@@ -38,7 +37,7 @@ const getAuthenticatedUser = CatchAsyncErrors(
         user,
       });
     } catch (error: any) {
-      logInfo(`login-error: ${error}`);
+      logInfo(`whoami-error: ${error}`);
       const err = new ErrorHandler(error.message, error.statusCode);
       res.status(err.statusCode).json({
         success: false,
@@ -48,12 +47,14 @@ const getAuthenticatedUser = CatchAsyncErrors(
   }
 );
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  switch (req.method) {
-    case 'GET':
-      await getAuthenticatedUser(req, res);
-      break;
-    default:
-      throw new ErrorHandler('Method Not Allowed', 405);
+export default CatchAsyncErrors(
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    switch (req.method) {
+      case 'GET':
+        await getAuthenticatedUser(req, res);
+        break;
+      default:
+        throw new ErrorHandler('Method Not Allowed', 405);
+    }
   }
-};
+);
