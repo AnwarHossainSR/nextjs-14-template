@@ -44,10 +44,9 @@ const Login = () => {
       const response = await res.json();
 
       if (res.status !== 200) return setError({ common: response.message });
-      return router.push('/dashboard');
     }
 
-    return setError({ common: 'Email or password is incorrect' });
+    return router.push('/dashboard');
   };
 
   return (

@@ -36,9 +36,7 @@ const Dashboard = () => {
 
     const response = await res.json();
 
-    if (response.status === 401) {
-      router.push('/');
-    }
+    console.log(response);
   };
   useEffect(() => {
     getAuthUserData();
