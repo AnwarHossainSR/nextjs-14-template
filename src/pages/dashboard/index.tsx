@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -10,8 +11,19 @@ const Dashboard = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
-    // await logout();
-    router.push('/');
+    const res = await fetch('/api/auth/logout', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const response = await res.json();
+
+    if (response.success === true) {
+      return router.push('/');
+    }
+    return alert(response.message);
   };
 
   const getAuthUserData = async () => {
@@ -24,7 +36,9 @@ const Dashboard = () => {
 
     const response = await res.json();
 
-    console.log('response', response);
+    if (response.status === 401) {
+      router.push('/');
+    }
   };
   useEffect(() => {
     getAuthUserData();

@@ -25,7 +25,7 @@ const logout = CatchAsyncErrors(
         message: 'Logged out',
       });
     } catch (error: any) {
-      logInfo(`login-error: ${error}`);
+      logInfo(`logout-error: ${error}`);
       const err = new ErrorHandler(error.message, error.statusCode);
       res.status(err.statusCode).json({
         success: false,
@@ -35,12 +35,14 @@ const logout = CatchAsyncErrors(
   }
 );
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  switch (req.method) {
-    case 'GET':
-      await logout(req, res);
-      break;
-    default:
-      throw new ErrorHandler('Method Not Allowed', 405);
+export default CatchAsyncErrors(
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    switch (req.method) {
+      case 'GET':
+        await logout(req, res);
+        break;
+      default:
+        throw new ErrorHandler('Method Not Allowed', 405);
+    }
   }
-};
+);

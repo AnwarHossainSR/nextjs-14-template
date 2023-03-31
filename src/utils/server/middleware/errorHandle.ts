@@ -13,6 +13,8 @@ class ErrorHandler extends Error {
     super(message);
     this.statusCode = statusCode;
     this.message = message;
+
+    Error.captureStackTrace(this, this.constructor);
   }
 }
 
@@ -27,8 +29,11 @@ const CatchAsyncErrors =
     } catch (error: any) {
       const newError = { ...error }; // create a copy of err object
 
-      // Mongoose duplicate key error
-      if (newError.code === 11000) {
+      if (newError.statusCode === 405) {
+        const message = `Method Not Allowed`;
+        newError.message = message;
+        newError.statusCode = 405;
+      } else if (newError.code === 11000) {
         const message = `Duplicate ${Object.keys(newError.keyValue)} Entered`;
         newError.message = message;
         newError.statusCode = 400;

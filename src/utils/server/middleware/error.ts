@@ -67,6 +67,15 @@ export const errorTypes = (newError: any) => {
     case 'HTTP Version Not Supported':
       const httpVersionNotSupportedMsg = `HTTP Version Not Supported: ${newError.message}`;
       return { message: httpVersionNotSupportedMsg, statusCode: 505 };
+    case 'Variant Also Negotiates':
+      const variantAlsoNegotiatesMsg = `Variant Also Negotiates: ${newError.message}`;
+      return { message: variantAlsoNegotiatesMsg, statusCode: 506 };
+    case 'Insufficient Storage':
+      const insufficientStorageMsg = `Insufficient Storage: ${newError.message}`;
+      return { message: insufficientStorageMsg, statusCode: 507 };
+    case 'Method Not Allowed':
+      const methodNotAllowedMsg = `Method Not Allowed: ${newError.message}`;
+      return { message: methodNotAllowedMsg, statusCode: 405 };
     default:
       return { message: 'Internal Server Error', statusCode: 500 };
   }
