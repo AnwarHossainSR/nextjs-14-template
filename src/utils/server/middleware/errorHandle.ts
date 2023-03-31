@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { logError } from '@/utils/logger';
+import { errorTypes } from './error';
 
 // Error handler class
 class ErrorHandler extends Error {
@@ -25,8 +25,23 @@ const CatchAsyncErrors =
     try {
       await handler(req, res);
     } catch (error: any) {
-      logError(error);
-      res.status(500).json({ message: 'Internal server error' });
+      const newError = { ...error }; // create a copy of err object
+
+      // Mongoose duplicate key error
+      if (newError.code === 11000) {
+        const message = `Duplicate ${Object.keys(newError.keyValue)} Entered`;
+        newError.message = message;
+        newError.statusCode = 400;
+      } else {
+        const errResponse = errorTypes(newError);
+        newError.message = errResponse.message;
+        newError.statusCode = errResponse.statusCode;
+      }
+
+      res.status(newError.statusCode).json({
+        success: false,
+        message: newError.message,
+      });
     }
   };
 

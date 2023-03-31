@@ -9,6 +9,9 @@ export function MainLayout({ children }: ChildrenProps) {
   return (
     <Wrapper>
       <Header>
+        <Link href="/">
+          <span>Home</span>
+        </Link>
         <Link href="/login">
           <span>Login</span>
         </Link>

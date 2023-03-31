@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
@@ -33,6 +34,9 @@ const Dashboard = () => {
     <Wrapper>
       <Head title="Dashboard" description="Dashboard page" />
       <Header>
+        <Link href="/">
+          <span>Home</span>
+        </Link>
         <button type="button" onClick={handleLogout}>
           <span>Logout</span>
         </button>
