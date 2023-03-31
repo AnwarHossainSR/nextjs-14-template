@@ -59,6 +59,9 @@ const Register = () => {
     <Wrapper>
       <Head title="Login" description="Login page" />
       <Header>
+        <Link href="/">
+          <span>Home</span>
+        </Link>
         <Link href="/login">
           <span>Login</span>
         </Link>

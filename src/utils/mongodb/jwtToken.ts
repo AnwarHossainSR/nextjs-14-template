@@ -19,5 +19,9 @@ export const createRefreshToken = (payload: TokenPayload) => {
 };
 
 export const verifyAccessToken = (token: string) => {
-  return jwt.verify(token, Env.ACCESS_TOKEN_SECRET);
+  try {
+    return jwt.verify(token, Env.ACCESS_TOKEN_SECRET);
+  } catch (error: any) {
+    return null;
+  }
 };

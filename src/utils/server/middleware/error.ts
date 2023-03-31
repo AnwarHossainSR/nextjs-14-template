@@ -1,49 +1,73 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-
-import type { ErrorHandler } from '@/utils/server/middleware/errorHandle';
-
-const errorHandlerMiddleware = (
-  err: ErrorHandler,
-  _req: NextApiRequest,
-  res: NextApiResponse
-) => {
-  const error = { ...err }; // create a copy of err object
-
-  error.statusCode = error.statusCode || 500;
-  error.message = error.message || 'Internal Server Error';
-
-  // Wrong Mongodb Id error
-  if (error.name === 'CastError') {
-    const message = `Resource not found. Invalid: ${error.path}`;
-    error.message = message;
-    error.statusCode = 400;
+/* eslint-disable no-case-declarations */
+/* eslint-disable no-template-curly-in-string */
+export const errorTypes = (newError: any) => {
+  switch (newError.name) {
+    case 'CastError':
+      const castErrorMessage = `Resource not found. Invalid: ${newError.path}`;
+      return { message: castErrorMessage, statusCode: 400 };
+    case 'JsonWebTokenError':
+      const jwtErrorMessage = `Json Web Token is invalid, Try again`;
+      return { message: jwtErrorMessage, statusCode: 400 };
+    case 'TokenExpiredError':
+      const jwtExpireErrorMessage = `Json Web Token is Expired, Try again`;
+      return { message: jwtExpireErrorMessage, statusCode: 400 };
+    case 'ValidationError':
+      const validationErrorMessage = Object.values(newError.errors).map(
+        (value: any) => value.message
+      );
+      return { message: validationErrorMessage, statusCode: 400 };
+    case 'RangeError':
+      const rangeErrorMessage = `RangeError: ${newError.message}`;
+      return { message: rangeErrorMessage, statusCode: 400 };
+    case 'TypeError':
+      const typeErrorMessage = `TypeError: ${newError.message}`;
+      return { message: typeErrorMessage, statusCode: 400 };
+    case 'ReferenceError':
+      const referenceErrorMessage = `ReferenceError: ${newError.message}`;
+      return { message: referenceErrorMessage, statusCode: 400 };
+    case 'SyntaxError':
+      const syntaxErrorMessage = `SyntaxError: ${newError.message}`;
+      return { message: syntaxErrorMessage, statusCode: 400 };
+    case 'EvalError':
+      const evalErrorMessage = `EvalError: ${newError.message}`;
+      return { message: evalErrorMessage, statusCode: 400 };
+    case 'URIError':
+      const uriErrorMessage = `URIError: ${newError.message}`;
+      return { message: uriErrorMessage, statusCode: 400 };
+    case 'Internal Server Error':
+      const internalServerErrorMsg = `Internal Server Error: ${newError.message}`;
+      return { message: internalServerErrorMsg, statusCode: 500 };
+    case 'Unauthorized':
+      const unauthorizedMsg = `Unauthorized: ${newError.message}`;
+      return { message: unauthorizedMsg, statusCode: 401 };
+    case 'Forbidden':
+      const forbiddenMsg = `Forbidden: ${newError.message}`;
+      return { message: forbiddenMsg, statusCode: 403 };
+    case 'Not Found':
+      const notFoundMsg = `Not Found: ${newError.message}`;
+      return { message: notFoundMsg, statusCode: 404 };
+    case 'Bad Request':
+      const badRequestMsg = `Bad Request: ${newError.message}`;
+      return { message: badRequestMsg, statusCode: 400 };
+    case 'Conflict':
+      const conflictMsg = `Conflict: ${newError.message}`;
+      return { message: conflictMsg, statusCode: 409 };
+    case 'Unprocessable Entity':
+      const unprocessableEntityMsg = `Unprocessable Entity: ${newError.message}`;
+      return { message: unprocessableEntityMsg, statusCode: 422 };
+    case 'Too Many Requests':
+      const tooManyRequestsMsg = `Too Many Requests: ${newError.message}`;
+      return { message: tooManyRequestsMsg, statusCode: 429 };
+    case 'Service Unavailable':
+      const serviceUnavailableMsg = `Service Unavailable: ${newError.message}`;
+      return { message: serviceUnavailableMsg, statusCode: 503 };
+    case 'Gateway Timeout':
+      const gatewayTimeoutMsg = `Gateway Timeout: ${newError.message}`;
+      return { message: gatewayTimeoutMsg, statusCode: 504 };
+    case 'HTTP Version Not Supported':
+      const httpVersionNotSupportedMsg = `HTTP Version Not Supported: ${newError.message}`;
+      return { message: httpVersionNotSupportedMsg, statusCode: 505 };
+    default:
+      return { message: 'Internal Server Error', statusCode: 500 };
   }
-
-  // Mongoose duplicate key error
-  if (error.code === 11000) {
-    const message = `Duplicate ${Object.keys(error.keyValue)} Entered`;
-    error.message = message;
-    error.statusCode = 400;
-  }
-
-  // Wrong JWT error
-  if (error.name === 'JsonWebTokenError') {
-    const message = `Json Web Token is invalid, Try again `;
-    error.message = message;
-    error.statusCode = 400;
-  }
-
-  // JWT EXPIRE error
-  if (error.name === 'TokenExpiredError') {
-    const message = `Json Web Token is Expired, Try again `;
-    error.message = message;
-    error.statusCode = 400;
-  }
-
-  res.status(error.statusCode).json({
-    success: false,
-    message: error.message,
-  });
 };
-
-export default errorHandlerMiddleware;

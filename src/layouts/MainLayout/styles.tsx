@@ -19,7 +19,7 @@ export const Header = styled.header`
   color: var(--color);
   padding: 2rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 `;
 
 export const Footer = styled.footer`

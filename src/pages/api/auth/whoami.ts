@@ -13,13 +13,16 @@ const getAuthenticatedUser = CatchAsyncErrors(
   async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { accessToken } = req.cookies;
+
       if (!accessToken) {
         throw new ErrorHandler('Unauthorized', 401);
       }
 
       const isVerified = verifyAccessToken(accessToken);
+      console.log(isVerified);
+
       if (!isVerified) {
-        throw new ErrorHandler('Access token is not verified!', 401);
+        throw new ErrorHandler('Unauthorized', 401);
       }
 
       const { userId } = isVerified as { userId: string };
