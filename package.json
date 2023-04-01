@@ -17,7 +17,6 @@
     "prettier": "prettier --write .",
     "lint": "yarn eslint && yarn prettier",
     "format": "next lint --fix && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore",
-    "postinstall": "./node_modules/.bin/husky install",
     "postbuild": "next-sitemap",
     "prepare": "husky install"
   },
