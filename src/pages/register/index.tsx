@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { Head } from '@/components';
 import MainFooter from '@/components/Footer';
 import { Content, Header, Wrapper } from '@/layouts/MainLayout/styles';
+import { commonHeaders } from '@/utils/client/headers';
 
 interface IError {
   name?: string;
@@ -36,23 +37,21 @@ const Register = () => {
     if (!email) return setError({ email: 'Email is required' });
     if (!password) return setError({ password: 'Password is required' });
 
-    const res = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name,
+    const res = await fetch(
+      '/api/auth/register',
+      commonHeaders('POST', {
         email,
         password,
-      }),
-    });
+        name,
+      })
+    );
 
-    if (res.status === 200) {
+    if (res.ok) {
       router.push('/login');
     }
 
-    return setError({ common: res.statusText });
+    const response = await res.json();
+    return setError({ common: response.err });
   };
 
   return (
@@ -70,7 +69,9 @@ const Register = () => {
         <div className="flex flex-col items-center justify-center h-full">
           <form className="flex flex-col w-96" onSubmit={handleRegister}>
             {error?.common && (
-              <div className="text-red-500 text-sm mt-2">{error?.common}</div>
+              <div className="text-red-500 text-center text-sm mt-2">
+                {error?.common}
+              </div>
             )}
             <label htmlFor="name" className="text-sm font-semibold">
               Name

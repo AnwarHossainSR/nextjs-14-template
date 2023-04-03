@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { Head } from '@/components';
 import MainFooter from '@/components/Footer';
 import { Content, Header, Wrapper } from '@/layouts/MainLayout/styles';
+import { commonHeaders } from '@/utils/client/headers';
 
 interface IError {
   email?: string;
@@ -30,20 +31,14 @@ const Login = () => {
     if (!password) return setError({ password: 'Password is required' });
 
     if (email && password) {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
+      const res = await fetch(
+        '/api/auth/login',
+        commonHeaders('POST', { email, password })
+      );
 
       const response = await res.json();
 
-      if (res.status !== 200) return setError({ common: response.message });
+      if (!res.ok) return setError({ common: response.message });
     }
 
     return router.push('/dashboard');
