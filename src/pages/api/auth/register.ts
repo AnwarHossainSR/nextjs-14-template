@@ -3,7 +3,10 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import UserModel from '@/models/userModel';
 import { logInfo } from '@/utils/logger';
 import { connectDB } from '@/utils/mongodb/mongodb';
-import { CatchAsyncErrors } from '@/utils/server/middleware/errorHandle';
+import {
+  CatchAsyncErrors,
+  ErrorHandler,
+} from '@/utils/server/middleware/errorHandle';
 import valid from '@/utils/validations/userValidation';
 
 const register = CatchAsyncErrors(
@@ -14,11 +17,11 @@ const register = CatchAsyncErrors(
       const { name, email, password } = req.body;
 
       const errMsg = valid(name, email, password);
-      if (errMsg) return res.status(400).json({ err: errMsg });
+
+      if (errMsg) throw new ErrorHandler(errMsg, 400);
 
       const user = await UserModel.findOne({ email });
-      if (user)
-        return res.status(400).json({ err: 'This email already exists.' });
+      if (user) throw new ErrorHandler('This email already exists.', 400);
 
       const newUser = new UserModel({
         name,
