@@ -1,3 +1,0 @@
-const SALT_WORK_FACTOR = 10;
-
-export { SALT_WORK_FACTOR };
