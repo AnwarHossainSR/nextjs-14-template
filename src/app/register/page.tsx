@@ -46,14 +46,12 @@ const Register = () => {
       })
     );
 
-    console.log(res);
-
-    if (res.ok) {
-      router.push('/login');
+    if (!res.ok) {
+      const response = await res.json();
+      return setError({ common: response.message });
     }
 
-    const response = await res.json();
-    return setError({ common: response.err });
+    return router.push('/login');
   };
 
   return (

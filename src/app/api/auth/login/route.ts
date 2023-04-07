@@ -1,7 +1,7 @@
 import { serialize } from 'cookie';
-/* eslint-disable consistent-return */
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 
+/* eslint-disable consistent-return */
 import UserModel from '@/models/userModel';
 import { logInfo } from '@/utils/logger';
 import {
@@ -9,69 +9,67 @@ import {
   createRefreshToken,
 } from '@/utils/mongodb/jwtToken';
 import connectDB from '@/utils/mongodb/mongodb';
-import {
-  CatchAsyncErrors,
-  ErrorHandler,
-} from '@/utils/server/middleware/errorHandle';
 
-const login = CatchAsyncErrors(
-  async (req: NextApiRequest, res: NextApiResponse) => {
-    try {
-      await connectDB();
-      const { email, password } = req.body;
+export async function POST(req: Request) {
+  try {
+    await connectDB();
+    const { email, password } = await req.json();
 
-      // checking if user has given password and email both
+    // checking if user has given password and email both
 
-      if (!email || !password) {
-        throw new ErrorHandler('Please Enter Email & Password', 400);
-      }
+    if (!email || !password)
+      return NextResponse.json(
+        { message: 'Please enter email and password!' },
+        { status: 400 }
+      );
 
-      const user = await UserModel.findOne({ email }).select('+password');
+    const user = await UserModel.findOne({ email }).select('+password');
 
-      if (!user) throw new ErrorHandler('Invalid email!', 401);
+    if (!user)
+      return NextResponse.json(
+        { message: 'User does not exist!' },
+        { status: 400 }
+      );
 
-      const isMatch = await user.comparePassword(password);
+    const isMatch = await user.comparePassword(password);
 
-      if (!isMatch) throw new ErrorHandler('Invalid password!', 401);
+    if (!isMatch)
+      return NextResponse.json(
+        { message: 'Invalid Password!' },
+        { status: 401 }
+      );
 
-      const accessToken = createAccessToken({ userId: user._id });
-      const refreshToken = createRefreshToken({ userId: user._id });
+    const accessToken = createAccessToken({ userId: user._id });
+    const refreshToken = createRefreshToken({ userId: user._id });
 
-      const serialized = serialize('accessToken', accessToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV !== 'development',
-        sameSite: 'strict',
-        maxAge: 60 * 60 * 24 * 30,
-        path: '/',
-      });
+    const serialized = serialize('accessToken', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development',
+      sameSite: 'strict',
+      maxAge: 60 * 60 * 24 * 30,
+      path: '/',
+    });
 
-      res.setHeader('Set-Cookie', serialized);
+    // NextResponse.setHeader('Set-Cookie', serialized);
+    // const requestHeaders = new Headers(req.headers);
+    // requestHeaders.set('Set-Cookie', serialized);
+    // NextResponse.next({
+    //   request: {
+    //     headers: requestHeaders,
+    //   },
+    // });
+    req.headers.set('Set-Cookie', serialized);
 
-      return res.status(200).json({
-        success: true,
-        message: 'Login Success!',
-        refreshToken,
-        accessToken,
-      });
-    } catch (error: any) {
-      logInfo(`login-error: ${error}`);
-      const err = new ErrorHandler(error.message, error.statusCode);
-      res.status(err.statusCode).json({
-        success: false,
-        message: err.message,
-      });
-    }
+    return NextResponse.json({
+      message: 'Login Success!',
+      accessToken,
+      refreshToken,
+    });
+  } catch (err: any) {
+    logInfo(`login-error: ${err.message} ${err.statusCode} ${err.stack}`);
+    return NextResponse.json(
+      { message: err.message },
+      { status: err.statusCode }
+    );
   }
-);
-
-export default CatchAsyncErrors(
-  async (req: NextApiRequest, res: NextApiResponse) => {
-    switch (req.method) {
-      case 'POST':
-        await login(req, res);
-        break;
-      default:
-        throw new ErrorHandler('Method Not Allowed', 405);
-    }
-  }
-);
+}

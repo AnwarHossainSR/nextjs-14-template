@@ -2,7 +2,9 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 export default async function middleware(req: NextRequest) {
+  const response = NextResponse.next();
   const accessToken = req.cookies.get('accessToken')?.value;
+  console.log('cookies', response.cookies.getAll());
 
   if (!accessToken)
     return NextResponse.redirect(new URL('/unauthorized', req.url), req);

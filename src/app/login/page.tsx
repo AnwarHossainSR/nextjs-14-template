@@ -30,16 +30,13 @@ const Login = () => {
     if (!email) return setError({ email: 'Email is required' });
     if (!password) return setError({ password: 'Password is required' });
 
-    if (email && password) {
-      const res = await fetch(
-        '/api/auth/login',
-        commonHeaders('POST', { email, password })
-      );
+    const res = await fetch(
+      '/api/auth/login',
+      commonHeaders('POST', { email, password })
+    );
 
-      const response = await res.json();
-
-      if (!res.ok) return setError({ common: response.message });
-    }
+    const response = await res.json();
+    if (!res.ok) return setError({ common: response.message });
 
     return router.push('/dashboard');
   };

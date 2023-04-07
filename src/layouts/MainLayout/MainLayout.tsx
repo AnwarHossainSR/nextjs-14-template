@@ -1,5 +1,3 @@
-import '@/styles/globals.css';
-
 import type { ChildrenProps } from '@/types';
 
 export default function MainLayout({ children }: ChildrenProps) {

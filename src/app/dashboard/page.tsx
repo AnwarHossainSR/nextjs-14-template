@@ -1,6 +1,8 @@
+'use client';
+
 /* eslint-disable no-alert */
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import Header from '@/components/Header';
 import MainLayout from '@/layouts/MainLayout/MainLayout';
