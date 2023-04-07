@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import UserModel from '@/models/userModel';
 import { logInfo } from '@/utils/logger';
-import { connectDB } from '@/utils/mongodb/mongodb';
+import connectDB from '@/utils/mongodb/mongodb';
 import { ErrorHandler } from '@/utils/server/middleware/errorHandle';
 import valid from '@/utils/validations/userValidation';
 

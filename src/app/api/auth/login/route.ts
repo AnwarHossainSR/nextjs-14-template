@@ -8,7 +8,7 @@ import {
   createAccessToken,
   createRefreshToken,
 } from '@/utils/mongodb/jwtToken';
-import { connectDB } from '@/utils/mongodb/mongodb';
+import connectDB from '@/utils/mongodb/mongodb';
 import {
   CatchAsyncErrors,
   ErrorHandler,
