@@ -1,4 +1,4 @@
-import { ErrorLayout } from '@/layouts';
+import ErrorLayout from '@/layouts/ErrorLayout/ErrorLayout';
 
 function UnAuthorizeErrorPage() {
   return (
@@ -12,11 +12,5 @@ function UnAuthorizeErrorPage() {
 UnAuthorizeErrorPage.getLayout = (page: any) => (
   <ErrorLayout>{page}</ErrorLayout>
 );
-
-export const getStaticProps = () => ({
-  props: {
-    title: '🕵🏼 - 404',
-  },
-});
 
 export default UnAuthorizeErrorPage;

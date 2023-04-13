@@ -34,8 +34,13 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/public/*": ["./public/*"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "exclude": ["./out/**/*", "./node_modules/**/*", "cypress/**/*.ts"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"]
 }

@@ -1,10 +1,14 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
+/* eslint-disable no-param-reassign */
 /** @type {import('next').NextConfig} */
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
+const nextConfig = {
+  experimental: {
+    appDir: true,
+    serverComponentsExternalPackages: ['mongoose'],
+  },
+  webpack(config) {
+    config.experiments = { ...config.experiments, topLevelAwait: true };
+    return config;
+  },
+};
 
-module.exports = withBundleAnalyzer({
-  reactStrictMode: true,
-});
+module.exports = nextConfig;

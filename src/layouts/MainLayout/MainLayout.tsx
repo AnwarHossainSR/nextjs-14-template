@@ -1,23 +1,7 @@
-import Link from 'next/link';
-
-import MainFooter from '@/components/Footer';
 import type { ChildrenProps } from '@/types';
 
-import { Content, Header, Wrapper } from './styles';
-
-export function MainLayout({ children }: ChildrenProps) {
+export default function MainLayout({ children }: ChildrenProps) {
   return (
-    <Wrapper>
-      <Header>
-        <Link href="/">
-          <span>Home</span>
-        </Link>
-        <Link href="/login">
-          <span>Login</span>
-        </Link>
-      </Header>
-      <Content>{children}</Content>
-      <MainFooter />
-    </Wrapper>
+    <div className="h-full flex flex-col bg-var(--background)">{children}</div>
   );
 }

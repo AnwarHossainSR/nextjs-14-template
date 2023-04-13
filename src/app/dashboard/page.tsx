@@ -1,10 +1,11 @@
+'use client';
+
 /* eslint-disable no-alert */
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-import { Head } from '@/components';
-import { Content, Header, Wrapper } from '@/layouts/MainLayout/styles';
+import Header from '@/components/Header';
+import MainLayout from '@/layouts/MainLayout/MainLayout';
 
 const Dashboard = () => {
   // const { logout } = useAuth();
@@ -26,25 +27,23 @@ const Dashboard = () => {
     return alert(response.message);
   };
 
-  const getAuthUserData = async () => {
-    const res = await fetch('/api/auth/whoami', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  // const getAuthUserData = async () => {
+  //   const res = await fetch('/api/auth/whoami', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   });
 
-    const response = await res.json();
+  //   return res.json();
+  // };
 
-    console.log(response);
-  };
-  useEffect(() => {
-    getAuthUserData();
-  }, []);
+  // const response = getAuthUserData();
+  // // eslint-disable-next-line no-console
+  // console.log(response);
 
   return (
-    <Wrapper>
-      <Head title="Dashboard" description="Dashboard page" />
+    <MainLayout>
       <Header>
         <Link href="/">
           <span>Home</span>
@@ -53,12 +52,12 @@ const Dashboard = () => {
           <span>Logout</span>
         </button>
       </Header>
-      <Content>
+      <div className="flex-1">
         <div className="flex flex-col items-center justify-center h-full">
           <h1 className="text-2xl font-semibold">Dashboard</h1>
         </div>
-      </Content>
-    </Wrapper>
+      </div>
+    </MainLayout>
   );
 };
 

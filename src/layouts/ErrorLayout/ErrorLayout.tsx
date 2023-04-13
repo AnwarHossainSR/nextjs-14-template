@@ -1,29 +1,17 @@
-'use client';
-
 import Link from 'next/link';
-import styled from 'styled-components';
 
 import type { ChildrenProps } from '@/types';
 
-const Wrapper = styled.main`
-  height: 100%;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 1rem;
+export const metadata = {
+  title: 'Something is wrong',
+  description: 'Something is wrong',
+};
 
-  a {
-    color: var(--text-color);
-  }
-`;
-
-export function ErrorLayout({ children }: ChildrenProps) {
+export default function ErrorLayout({ children }: ChildrenProps) {
   return (
-    <Wrapper>
+    <div>
       {children}
-      <Link href="/" passHref>
-        Go back to home
-      </Link>
-    </Wrapper>
+      <Link href="/">Go back to home</Link>
+    </div>
   );
 }

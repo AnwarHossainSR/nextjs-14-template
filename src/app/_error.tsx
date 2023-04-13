@@ -1,4 +1,4 @@
-import { ErrorLayout } from '@/layouts';
+import ErrorLayout from '@/layouts/ErrorLayout/ErrorLayout';
 
 function ErrorPage() {
   return <h1>There was an error, let me check on that</h1>;
