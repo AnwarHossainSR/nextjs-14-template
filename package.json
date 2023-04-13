@@ -32,6 +32,7 @@
     "config": "^3.3.9",
     "cookie": "^0.5.0",
     "date-fns": "^2.29.3",
+    "js-cookie": "^3.0.1",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",
     "next": "^13.3.0",

@@ -27,20 +27,20 @@ const Dashboard = () => {
     return alert(response.message);
   };
 
-  const getAuthUserData = async () => {
-    const res = await fetch('/api/auth/whoami', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  // const getAuthUserData = async () => {
+  //   const res = await fetch('/api/auth/whoami', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   });
 
-    return res.json();
-  };
+  //   return res.json();
+  // };
 
-  const response = getAuthUserData();
-  // eslint-disable-next-line no-console
-  console.log(response);
+  // const response = getAuthUserData();
+  // // eslint-disable-next-line no-console
+  // console.log(response);
 
   return (
     <MainLayout>

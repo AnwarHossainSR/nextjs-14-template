@@ -13,3 +13,8 @@ export type AppPropsWithLayout = AppProps & {
 export type ChildrenProps = {
   children: ReactNode;
 };
+
+export type IToken = {
+  accessToken: string;
+  refreshToken?: string;
+};
