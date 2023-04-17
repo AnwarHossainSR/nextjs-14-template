@@ -101,7 +101,7 @@ const Modal: React.FC<ModalProps> = ({
         className="
           relative 
           w-full
-          md:w-4/6
+          md:w-3/6
           lg:w-3/6
           xl:w-2/5
           my-6
@@ -135,9 +135,9 @@ const Modal: React.FC<ModalProps> = ({
               flex 
               flex-col 
               w-full 
-              bg-white 
               outline-none 
               focus:outline-none
+              bg-slate-900
             "
           >
             {/* header */}

@@ -41,13 +41,12 @@ const RegisterModal = () => {
 
     try {
       await axios.post('/api/auth/register', data);
-      toast.success('Registered!');
       registerModal.onClose();
       loginModal.onOpen();
+      toast.success('Registered!');
       return setIsLoading(false);
     } catch (error: any) {
-      console.log(error);
-      toast.error(error.response?.data.err || error.message);
+      toast.error(error.response?.data.message || error.message);
       return setIsLoading(false);
     }
   };
