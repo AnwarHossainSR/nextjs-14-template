@@ -1,9 +1,9 @@
 /* eslint-disable func-names */
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
 import type { Document, Model } from 'mongoose';
 import mongoose from 'mongoose';
 
-import { SALT_WORK_FACTOR } from '@/config';
+// import { SALT_WORK_FACTOR } from '@/config';
 
 export interface UserInput {
   email: string;
@@ -31,29 +31,29 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.pre('save', async function (next) {
-  const user = this as UserDocument;
+// userSchema.pre('save', async function (next) {
+//   const user = this as UserDocument;
 
-  if (!user.isModified('password')) {
-    return next();
-  }
+//   if (!user.isModified('password')) {
+//     return next();
+//   }
 
-  const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
+//   const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
 
-  const hash = await bcrypt.hashSync(user.password, salt);
+//   const hash = await bcrypt.hashSync(user.password, salt);
 
-  user.password = hash;
+//   user.password = hash;
 
-  return next();
-});
+//   return next();
+// });
 
-userSchema.methods.comparePassword = async function (
-  candidatePassword: string
-): Promise<boolean> {
-  const user = this as UserDocument;
+// userSchema.methods.comparePassword = async function (
+//   candidatePassword: string
+// ): Promise<boolean> {
+//   const user = this as UserDocument;
 
-  return bcrypt.compare(candidatePassword, user.password).catch(() => false);
-};
+//   return bcrypt.compare(candidatePassword, user.password).catch(() => false);
+// };
 
 const UserModel: Model<UserDocument> =
   mongoose.models.User || mongoose.model<UserDocument>('User', userSchema);

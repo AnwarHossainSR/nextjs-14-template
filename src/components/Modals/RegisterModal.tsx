@@ -38,12 +38,11 @@ const RegisterModal = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
     setIsLoading(true);
-
     try {
-      await axios.post('/api/auth/register', data);
+      const response = await axios.post('/api/auth/register', data);
       registerModal.onClose();
       loginModal.onOpen();
-      toast.success('Registered!');
+      toast.success(response.data.message);
       return setIsLoading(false);
     } catch (error: any) {
       toast.error(error.response?.data.message || error.message);
