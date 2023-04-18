@@ -7,5 +7,10 @@
   "css.lint.unknownAtRules": "ignore",
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "cSpell.words": ["commitlint", "cssnano", "tailwindcss"]
+  "cSpell.words": [
+    "commitlint",
+    "cssnano",
+    "nextauth",
+    "tailwindcss"
+  ]
 }
