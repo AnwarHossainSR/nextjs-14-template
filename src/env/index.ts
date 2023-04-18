@@ -11,7 +11,7 @@ const GITHUB_SECRET = getEnvSafely('GITHUB_SECRET');
 const GOOGLE_CLIENT_ID = getEnvSafely('GOOGLE_CLIENT_ID');
 const GOOGLE_CLIENT_SECRET = getEnvSafely('GOOGLE_CLIENT_SECRET');
 const NODE_ENV = getEnvSafely('NODE_ENV');
-const NEXT_AUTH_SECRET = getEnvSafely('NEXT_AUTH_SECRET');
+const NEXTAUTH_SECRET = getEnvSafely('NEXTAUTH_SECRET');
 
 const env = {
   MONGODB_URI,
@@ -22,7 +22,7 @@ const env = {
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
   NODE_ENV,
-  NEXT_AUTH_SECRET,
+  NEXTAUTH_SECRET,
 };
 
 export default env;

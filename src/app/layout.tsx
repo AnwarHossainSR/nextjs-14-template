@@ -2,6 +2,7 @@ import '@/styles/globals.css';
 
 import { Inter } from 'next/font/google';
 
+import getCurrentUser from '@/app/actions/getCurrentUser';
 import { ClientOnly } from '@/components/ClientOnly/ClientOnly';
 import MainFooter from '@/components/Footer';
 import Header from '@/components/Header';
@@ -21,14 +22,16 @@ const inter = Inter({
   display: 'optional',
 });
 
-export default function RootLayout({ children }: ChildrenProps) {
+export default async function RootLayout({ children }: ChildrenProps) {
+  const currentUser = await getCurrentUser();
+
   return (
     <html lang="en">
       <body
         className={`${inter.className} h-full flex flex-col justify-between`}
       >
         <ClientOnly>
-          <Header />
+          <Header currentUser={currentUser} />
           <RegisterModal />
           <LoginModal />
           <ToasterProvider />
