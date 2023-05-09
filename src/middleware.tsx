@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export default async function middleware(req: NextRequest) {
   // const accessToken = req.cookies.get('accessToken')?.value;
-  // console.log('accessToken', accessToken);
+  // console.log('accessToken', accessToken);zz
 
   const authUser = true;
 
