@@ -2,7 +2,7 @@
 
 'use client';
 
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
@@ -11,16 +11,19 @@ import { useLoginModal } from '@/hooks';
 import type { CurrentUserProps } from '@/types';
 
 const Header: FC<CurrentUserProps> = ({ currentUser }) => {
+  const { data: session } = useSession();
   const router = useRouter();
   const loginModal = useLoginModal();
-  console.log(currentUser && currentUser);
+
+  // eslint-disable-next-line no-console
+  console.log(session, currentUser);
 
   return (
     <header className="px-8 py-8 flex justify-between bg-gray-900 text-violet-50">
       <Link href="/">
         <span>Home</span>
       </Link>
-      {currentUser ? (
+      {session?.user ? (
         <div className="flex gap-4">
           <Link href="/dashboard">
             <span>Dashboard</span>

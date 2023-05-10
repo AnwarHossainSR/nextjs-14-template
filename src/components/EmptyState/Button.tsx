@@ -10,6 +10,7 @@ interface ButtonProps {
   outline?: boolean;
   small?: boolean;
   icon?: IconType;
+  isLoading?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -19,6 +20,7 @@ const Button: React.FC<ButtonProps> = ({
   outline,
   small,
   icon: Icon,
+  isLoading,
 }) => {
   return (
     <button
@@ -52,7 +54,7 @@ const Button: React.FC<ButtonProps> = ({
           "
         />
       )}
-      {label}
+      {isLoading ? 'Lading..' : label}
     </button>
   );
 };

@@ -17,6 +17,7 @@ interface ModalProps {
   secondaryAction?: () => void;
   secondaryActionLabel?: string;
   modalRef?: React.RefObject<HTMLDivElement>;
+  isLoading?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -30,6 +31,7 @@ const Modal: React.FC<ModalProps> = ({
   disabled,
   secondaryAction,
   secondaryActionLabel,
+  isLoading,
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -193,6 +195,7 @@ const Modal: React.FC<ModalProps> = ({
                   disabled={disabled}
                   label={actionLabel}
                   onClick={handleSubmit}
+                  isLoading={isLoading}
                 />
               </div>
               {footer}
