@@ -15,6 +15,11 @@ const Header: FC<CurrentUserProps> = ({ currentUser }) => {
   const router = useRouter();
   const loginModal = useLoginModal();
 
+  const logout = async () => {
+    await signOut();
+    router.push('/');
+  };
+
   // eslint-disable-next-line no-console
   console.log(session, currentUser);
 
@@ -31,10 +36,7 @@ const Header: FC<CurrentUserProps> = ({ currentUser }) => {
           <button
             className="bg-red-500 text-gray-900 px-4 py-2 rounded-md"
             type="button"
-            onClick={() => {
-              signOut();
-              router.push('/');
-            }}
+            onClick={logout}
           >
             Logout
           </button>

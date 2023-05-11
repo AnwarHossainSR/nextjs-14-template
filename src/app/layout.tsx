@@ -12,8 +12,11 @@ import ToasterProvider from '@/providers/ToasterProvider';
 import type { ChildrenProps } from '@/types';
 
 export const metadata = {
-  title: 'Home | Next.js + TypeScript Starter',
-  description: 'Next.js + TypeScript + Tailwind CSS ',
+  description:
+    'A highly opinionated and complete starter for Next.js projects ready to production. Includes Typescript, Styled Components, Prettier, ESLint, Husky, SEO, and more.',
+  keywords:
+    'next, starter, typescript, tailwind css, prettier, eslint, husky, seo',
+  title: 'Next Starter',
 };
 
 const inter = Inter({
