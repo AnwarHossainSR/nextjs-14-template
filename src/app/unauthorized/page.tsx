@@ -1,29 +1,30 @@
 'use client';
 
-import EmptyState from '@/components/EmptyState';
-import { Head } from '@/components/Head';
+import { useEffect } from 'react';
 
-interface ErrorStateProps {
+import EmptyState from '@/components/EmptyState';
+
+interface UnauthorizeStateProps {
   error: Error;
-  reset: () => void;
 }
 
-const Error: React.FC<ErrorStateProps> = ({ error, reset }) => {
+const UnauthorizeState: React.FC<UnauthorizeStateProps> = ({ error }) => {
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }, [error]);
+
   return (
-    <>
-      <Head title="Error" />
-      <EmptyState
-        title="Uh No!! There was a problem."
-        subtitle={error.message || 'Something went wrong.'}
-        showReset
-        label="Try again"
-        reset={reset}
-      />
-    </>
+    <EmptyState
+      title="Uh No"
+      subtitle="You don't have permission for this resource"
+      showReset
+      label="Go back home"
+    />
   );
 };
 
-export default Error;
+export default UnauthorizeState;
 
 // import ErrorLayout from '@/layouts/ErrorLayout/ErrorLayout';
 
