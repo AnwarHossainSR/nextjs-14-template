@@ -4,7 +4,7 @@
 
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import type { FC } from 'react';
 
 import { useLoginModal } from '@/hooks';
@@ -12,12 +12,12 @@ import type { CurrentUserProps } from '@/types';
 
 const Header: FC<CurrentUserProps> = ({ currentUser }) => {
   const { data: session } = useSession();
-  const router = useRouter();
+  // const router = useRouter();
   const loginModal = useLoginModal();
 
   const logout = async () => {
     await signOut();
-    router.push('/');
+    redirect('/');
   };
 
   // eslint-disable-next-line no-console
