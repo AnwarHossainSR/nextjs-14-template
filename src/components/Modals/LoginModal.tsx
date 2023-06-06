@@ -112,8 +112,8 @@ const LoginModal = () => {
           <span
             onClick={onToggle}
             className="
-              text-rose-500	
-              cursor-pointer 
+              text-rose-500
+              cursor-pointer
               hover:underline
             "
           >
