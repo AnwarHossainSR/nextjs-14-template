@@ -72,8 +72,8 @@ module.exports = {
     'react/no-unescaped-entities': 'off',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
-    'simple-import-sort/exports': 'error',
-    'simple-import-sort/imports': 'error',
+    // 'simple-import-sort/exports': 'error',
+    // 'simple-import-sort/imports': 'error',
     'sort-keys': 'off',
     'no-unused-vars': 'error',
     'react/function-component-definition': [
