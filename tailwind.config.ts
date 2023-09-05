@@ -1,5 +1,4 @@
 import type { Config } from 'tailwindcss';
-import colors from 'tailwindcss/colors';
 import defaultTheme from 'tailwindcss/defaultTheme';
 
 const config: Config = {
@@ -17,7 +16,6 @@ const config: Config = {
         xl: '1536px',
       },
       colors: {
-        ...colors,
         brand: {
           accent: '#5AD769',
           main: '#324BC3',
@@ -38,5 +36,5 @@ const config: Config = {
     },
   },
   plugins: [],
-}
-export default config
+};
+export default config;
