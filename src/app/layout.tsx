@@ -11,18 +11,18 @@ import RegisterModal from '@/components/Modals/RegisterModal';
 import ToasterProvider from '@/providers/ToasterProvider';
 import type { ChildrenProps } from '@/types';
 
-// export const metadata = {
-//   description:
-//     'A highly opinionated and complete starter for Next.js projects ready to production. Includes Typescript, Styled Components, Prettier, ESLint, Husky, SEO, and more.',
-//   keywords:
-//     'next, starter, typescript, tailwind css, prettier, eslint, husky, seo',
-//   title: 'Next Starter',
-// };
+export const metadata = {
+  description:
+    'A highly opinionated and complete starter for Next.js projects ready to production. Includes Typescript, Styled Components, Prettier, ESLint, Husky, SEO, and more.',
+  keywords:
+    'next, starter, typescript, tailwind css, prettier, eslint, husky, seo',
+  title: 'Next Starter',
+};
 
 const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'optional',
+  display: 'swap',
+  adjustFontFallback: false,
 });
 
 export default async function RootLayout({ children }: ChildrenProps) {
