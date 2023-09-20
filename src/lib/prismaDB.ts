@@ -7,7 +7,5 @@ declare global {
   var prisma: PrismaClient | undefined;
 }
 
-const client = new PrismaClient();
-if (secretKey.NODE_ENV !== 'production') globalThis.prisma = client;
-
-export default client;
+export const prismaDB = new PrismaClient();
+if (secretKey.NODE_ENV !== 'production') globalThis.prisma = prismaDB;
