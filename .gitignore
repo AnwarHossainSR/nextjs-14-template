@@ -35,6 +35,5 @@ yarn-error.log*
 next-env.d.ts
 yarn.lock
 .env
-bun.lockb
 
 /application-log
