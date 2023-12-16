@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  # MongoDB service
+  mongo:
+    image: mongo
+    container_name: my-mongo
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
+
+  # Next.js app service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my-nextjs-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      MONGODB_URI: ${MONGO_URI}
+    #COMMAND: [ "pm2-runtime", "start", "npm", "--", "start" ]
