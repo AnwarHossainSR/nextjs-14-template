@@ -1,7 +1,6 @@
 'use client';
 
 import EmptyState from '@/components/EmptyState';
-import { Head } from '@/components/Head';
 
 interface ErrorStateProps {
   error: Error;
@@ -11,7 +10,6 @@ interface ErrorStateProps {
 const Error: React.FC<ErrorStateProps> = ({ error, reset }) => {
   return (
     <>
-      <Head title="Error" />
       <EmptyState
         title="Uh No!! There was a problem."
         subtitle={error.message || 'Something went wrong.'}
