@@ -10,5 +10,5 @@ module.exports = {
   semi: true,
   bracketSpacing: true,
   arrowParens: 'avoid',
-  endOfLine: 'lf',
+  endOfLine: 'auto',
 };

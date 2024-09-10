@@ -3,6 +3,7 @@ import '@/styles/globals.css';
 import { Inter } from 'next/font/google';
 
 import MainFooter from '@/components/Footer';
+import { QueryProvider } from '@/providers/query';
 import type { ChildrenProps } from '@/types';
 
 export const metadata = {
@@ -25,7 +26,9 @@ export default async function RootLayout({ children }: ChildrenProps) {
       <body
         className={`${inter.className} h-full flex flex-col justify-between`}
       >
-        <section className="flex-1">{children}</section>
+        <section className="flex-1">
+          <QueryProvider>{children}</QueryProvider>
+        </section>
         <MainFooter />
       </body>
     </html>
